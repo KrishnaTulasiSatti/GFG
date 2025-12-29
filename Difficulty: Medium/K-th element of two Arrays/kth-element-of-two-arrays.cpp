@@ -1,72 +1,45 @@
-//{ Driver Code Starts
-#include <bits/stdc++.h>
-using namespace std;
-
-
-// } Driver Code Ends
 class Solution {
   public:
-    int kthElement(vector<int>& a, vector<int>& b, int k) {
+    int kthElement(vector<int> &nums1, vector<int> &nums2, int k) {
         // code here
-        int i = 0;
-        int j = 0;
-        int ch = 0;
-        int res = 0;
-        while(i < a.size() && j < b.size()) {
-            if(ch == k) return res;
-            
-            if(a[i] < b[j]) res = a[i++];
-            else res = b[j++];
-            
-            ch++;
-            
+        int m = nums1.size();
+        int n = nums2.size();
+
+        if(n < m) return kthElement(nums2,nums1,k);
+
+        int low = max(0, k - n); 
+        int high = min(k, m);
+
+
+        int cnt = k;
+
+        while(low <= high) {
+
+            int mid1 = (low + high)/2;
+
+            int mid2 = cnt-mid1;
+
+          //  cout << mid1 << "--" << mid2 << endl;
+
+            int l1 = INT_MIN,l2 = INT_MIN;
+            int r1 = INT_MAX,r2 = INT_MAX;
+
+            if(mid1 < m) r1 = nums1[mid1];
+            if(mid2 < n) r2 = nums2[mid2];
+
+            if(mid1-1 >= 0) l1 = nums1[mid1-1];
+            if(mid2-1 >= 0) l2 = nums2[mid2-1];
+
+         //   cout << l1 << " " << l2 << "-->" << r1 << " " << r2 << endl;
+
+            if(l1 <= r2 && l2 <= r1) {
+                return max(l1,l2);
+            }
+            else if(l1 > r2) high = mid1-1;
+            else low = mid1+1;
         }
+
+        return -1;
         
-        while(i < a.size()) {
-            if(ch == k) return res;
-            res = a[i++];
-            ch++;
-        }
-        
-        while(j < b.size()) {
-            if(ch == k) return res;
-            res = b[j++];
-            ch++;
-        }
-        return res;
     }
 };
-
-//{ Driver Code Starts.
-
-// Driver code
-int main() {
-    int t;
-    cin >> t;
-    cin.ignore();
-    while (t--) {
-        int n, m, k;
-        cin >> k;
-        cin.ignore();
-        string input;
-        int num;
-        vector<int> a, b;
-
-        getline(cin, input);
-        stringstream s2(input);
-        while (s2 >> num) {
-            a.push_back(num);
-        }
-
-        getline(cin, input);
-        stringstream s3(input);
-        while (s3 >> num) {
-            b.push_back(num);
-        }
-
-        Solution ob;
-        cout << ob.kthElement(a, b, k) << endl << "~\n";
-    }
-    return 0;
-}
-// } Driver Code Ends
