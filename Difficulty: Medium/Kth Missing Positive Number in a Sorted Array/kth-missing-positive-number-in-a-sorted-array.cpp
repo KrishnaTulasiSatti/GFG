@@ -16,11 +16,8 @@ public:
                 low = mid + 1;
             }
         }
-
-        if (ans < arr.size()) {
-            return k + ans;
-        }
-
-        return arr.back() + (k - (arr.back() - arr.size()));
+        
+     //   cout << ans << endl;
+        return ans + k;
     }
 };
