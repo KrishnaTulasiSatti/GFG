@@ -2,12 +2,12 @@ class Solution {
   public:
     int countAtMostK(vector<int> &arr, int k) {
         // code here
-         unordered_map<int,int>m;
-        
         int cnt = 0;
         
         int l = 0;
         int r = 0;
+        
+        unordered_map<int,int>m;
         
         while(r < arr.size()) {
             m[arr[r]]++;
@@ -18,11 +18,7 @@ class Solution {
                 l++;
             }
             
-            if(m.size() <= k) {
-                cnt+=(r-l+1);
-            }
-            
-            
+            cnt += (r-l+1);
             r++;
         }
         
