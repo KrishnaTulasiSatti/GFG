@@ -1,27 +1,26 @@
 class Solution {
   public:
-  static bool cmp (const int& a,const int& b) {
-        string x = to_string(a);
-        string y = to_string(b);
-        
-        return x+y > y+x;
-  }
+    
+    
     string findLargest(vector<int> &arr) {
         // code here
-        sort(arr.begin(),arr.end(),cmp);
         
-        string res = "";
+        sort(arr.begin(),arr.end(),[](const int a,const int b){
+           return to_string(b) + to_string(a) < to_string(a) + to_string(b);
+        });
+        
+        string ans = "";
         
         for(auto it : arr) {
-            res += to_string(it);
+            ans += to_string(it);
         }
         
         int i = 0;
+        while(ans[i] == '0') i++;
         
-        while(res[i] == '0') i++;
+        string res = ans.substr(i);
         
-        if(i == res.size()) return "0";
+        if(res == "") return "0";
         return res;
-        
     }
 };
