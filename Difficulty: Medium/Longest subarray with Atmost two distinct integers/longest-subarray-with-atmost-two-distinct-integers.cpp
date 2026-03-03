@@ -2,9 +2,9 @@ class Solution {
   public:
     int totalElements(vector<int> &arr) {
         // code here
-        unordered_map<int,int>m;
-        
         int maxi = 0;
+        
+        unordered_map<int,int>m;
         
         int l = 0;
         int r = 0;
@@ -17,12 +17,7 @@ class Solution {
                 if(m[arr[l]] == 0) m.erase(arr[l]);
                 l++;
             }
-            
-            if(m.size() <= 2) {
-                maxi = max(maxi,r-l+1);
-            }
-            
-            
+            maxi = max(maxi,r-l+1);
             r++;
         }
         
